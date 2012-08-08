@@ -74,7 +74,7 @@ function set_custom_prompt {
 
   local HIGHLIGHT=$BLACK$BG_RED
 
-  PS1="\w "
+  PS1="\w "  # By default, show current working directory
   
   if is_ssh
   then  # Add username@machine at start of prompt when it's an ssh session
@@ -117,7 +117,11 @@ function current_git_branch {
 
 function git_remote {
   # Git remote url
-  local GIT_REMOTE=`git remote -v | grep origin.*fetch | sed "s/origin//" | sed "s/(fetch)//" | tr -d ' \t'`
+  local GIT_REMOTE=`git remote -v |
+      grep origin.*fetch |
+      sed "s/origin//" |
+      sed "s/(fetch)//" |
+      tr -d ' \t'`
 
   if $CROP_GITHUB_URL && $CROP_GITHUB_USERNAME
   then  # Display only remote repository name without username
