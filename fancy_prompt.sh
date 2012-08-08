@@ -35,8 +35,6 @@ function set_custom_prompt {
   local SHOW_REMOTE=true
   local SHOW_BRANCH=true
   local REMOTE_BRANCH_SEPARATOR="\:"
-  local CROP_GITHUB_URL=true
-  local CROP_GITHUB_USERNAME=true
 
   local NO_COLOR="\[\033[0m\]"
 
@@ -116,6 +114,9 @@ function current_git_branch {
 }
 
 function git_remote {
+  local CROP_GITHUB_URL=true
+  local CROP_GITHUB_USERNAME=true
+
   # Git remote url
   local GIT_REMOTE=`git remote -v |
       grep origin.*fetch |
