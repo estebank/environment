@@ -30,11 +30,15 @@
 #   username@machine ~/src/project (https://url.com/project.git)  # SSH
 #   ~/src/project (branch)  # git project showing only the current branch 
 
+SHOW_REMOTE=true
+SHOW_BRANCH=true
+CROP_GITHUB_URL=true
+CROP_GITHUB_USERNAME=true
+CROP_GIT_TAIL=true
+#SHOW_USERNAME_AND_MACHINE=true
+
 
 function set_custom_prompt {
-  local SHOW_REMOTE=true
-  local SHOW_BRANCH=true
-  local REMOTE_BRANCH_SEPARATOR="\:"
 
   local NO_COLOR="\[\033[0m\]"
 
@@ -67,31 +71,32 @@ function set_custom_prompt {
 
   local USERNAME_COLOR=$YELLOW
   local MACHINE_COLOR=$RED
-  local REMOTE_COLOR=$CYAN
-  local BRANCH_COLOR=$WHITE
+  local REMOTE_COLOR=$BLUE
+  local BRANCH_COLOR=$CYAN
 
   local HIGHLIGHT=$BLACK$BG_RED
 
-  PS1="\w "  # By default, show current working directory
+  PS1="\w"  # By default, show current working directory
   
   if is_ssh
   then  # Add username@machine at start of prompt when it's an ssh session
-    PS1="$USERNAME_COLOR\u$NO_COLOR@$MACHINE_COLOR\h$NO_COLOR $PS1"
+    PS1="$USERNAME_COLOR\u$NO_COLOR@$MACHINE_COLOR\h$NO_COLOR:$PS1"
   fi
   
-  if $SHOW_REMOTE || $SHOW_BRANCH
+  if [ "$SHOW_REMOTE" ] || [ "$SHOW_BRANCH" ]
   then  # Display when inside a git repository
-    PS1="$PS1\`if is_git; then echo \(; fi\`"
-    if $SHOW_REMOTE
+    PS1="$PS1\`if is_git; then echo \ \(; fi\`"
+    if [ "$SHOW_REMOTE" ]
     then  # Display "origin" remote git repository
       PS1="$PS1$REMOTE_COLOR\`if is_git; then echo \$(git_remote); fi\`"
     fi
-    if $SHOW_REMOTE && $SHOW_BRANCH
+    if [ "$SHOW_REMOTE" ] && [ "$SHOW_BRANCH" ]
     then  # When displaying both the remote repository and
           # the branch, show separator
-      PS1="$PS1$NO_COLOR\`if is_git; then echo $REMOTE_BRANCH_SEPARATOR; fi\`"
+      # If there is no remote set, don't display divisory :
+      PS1="$PS1$NO_COLOR\`if is_git && [ \$(git_remote) ]; then echo \:; fi\`"
     fi
-    if $SHOW_BRANCH
+    if [ "$SHOW_BRANCH" ]
     then  # Display current branch
       PS1="$PS1$BRANCH_COLOR\`if is_git; then echo \$(current_git_branch); fi\`"
     fi
@@ -114,10 +119,6 @@ function current_git_branch {
 }
 
 function git_remote {
-  local CROP_GITHUB_URL=true
-  local CROP_GITHUB_USERNAME=true
-  local CROP_GIT_TAIL=true
-
   # Git remote url
   local GIT_REMOTE=`git remote -v |
       grep origin.*fetch |
@@ -125,15 +126,16 @@ function git_remote {
       sed "s/(fetch)//" |
       tr -d ' \t'`
 
-  if $CROP_GITHUB_URL && $CROP_GITHUB_USERNAME
-  then  # Display only remote repository name without username
-    GIT_REMOTE=${GIT_REMOTE#https*github\.com\/*\/}
+  if [ "$CROP_GITHUB_URL" ]
+  then
+    if [ "$CROP_GITHUB_USERNAME" ]
+    then  # Display only remote repository name without username
+      GIT_REMOTE=${GIT_REMOTE#https*github\.com\/*\/}
+    else  # Display only remote repository name if it is GitHub
+      GIT_REMOTE=${GIT_REMOTE#https*github\.com\/}
+    fi
   fi
-  if $CROP_GITHUB_URL
-  then  # Display only remote repository name if it is GitHub
-    GIT_REMOTE=${GIT_REMOTE#https*github\.com\/}
-  fi
-  if $CROP_GIT_TAIL
+  if [ "$CROP_GIT_TAIL" ]
   then  # Display only remote repository name if it is GitHub
     GIT_REMOTE=${GIT_REMOTE%\.git}
   fi
@@ -143,7 +145,8 @@ function git_remote {
 
 function is_ssh {
   # Detect if current session was initiated from SSH.
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ] ||
+      [ -n "$SHOW_USERNAME_AND_MACHINE" ]
   then
     return 0
   fi
@@ -152,3 +155,8 @@ function is_ssh {
 
 
 set_custom_prompt
+
+
+unset SHOW_REMOTE SHOW_BRANCH REMOTE_BRANCH_SEPARATOR
+unset CROP_GITHUB_URL CROP_GITHUB_USERNAME CROP_GIT_TAIL
+unset SHOW_USERNAME_AND_MACHINE
