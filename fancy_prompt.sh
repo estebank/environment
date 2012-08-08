@@ -15,9 +15,9 @@
 # Helper functions to set up a fancy prompt.
 # 
 # Best way to use it is just to copy it anywhere you want (likely a
-# hidden directory in your home) and source it from .bashrc. In 
-# Terminal emulators other than bash, you can use the dot operator
-# (`. fancy_prompt.sh`).
+# hidden directory in your home) and source it from .bashrc or .profile.
+# In terminal emulators other than bash, you can use the dot operator
+# (`. fancy_prompt.sh`) instead of `source`.
 #
 # Basic .bashrc:
 #
