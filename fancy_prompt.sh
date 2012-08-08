@@ -116,6 +116,7 @@ function current_git_branch {
 function git_remote {
   local CROP_GITHUB_URL=true
   local CROP_GITHUB_USERNAME=true
+  local CROP_GIT_TAIL=true
 
   # Git remote url
   local GIT_REMOTE=`git remote -v |
@@ -132,6 +133,11 @@ function git_remote {
   then  # Display only remote repository name if it is GitHub
     GIT_REMOTE=${GIT_REMOTE#https*github\.com\/}
   fi
+  if $CROP_GIT_TAIL
+  then  # Display only remote repository name if it is GitHub
+    GIT_REMOTE=${GIT_REMOTE%\.git}
+  fi
+  
   echo $GIT_REMOTE
 }
 
