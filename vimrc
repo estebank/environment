@@ -36,7 +36,6 @@ endif
 " "set nolist" to disable this.
 " this only works if syntax highlighting is enabled.
 set list
-set listchars=tab:\ \ ,trail:\ ,extends:»,precedes:«
 if &background == "dark"
   highlight SpecialKey ctermbg=Red guibg=Red
 else
