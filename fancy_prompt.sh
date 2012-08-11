@@ -30,12 +30,13 @@
 #   username@machine ~/src/project (https://url.com/project.git)  # SSH
 #   ~/src/project (branch)  # git project showing only the current branch 
 
-SHOW_REMOTE=true
-SHOW_BRANCH=true
-CROP_GITHUB_URL=true
-CROP_GITHUB_USERNAME=true
-CROP_GIT_TAIL=true
-#SHOW_USERNAME_AND_MACHINE=true
+SHOW_REMOTE=true  # Show the origin remote url
+SHOW_BRANCH=true  # Show the current branch name
+CROP_GITHUB_URL=true  # Hide the github domain from the github url
+CROP_GITHUB_USERNAME=true  # Hide the github username from the github url
+CROP_GIT_TAIL=true  # Hide the ".git" from git urls
+#SHOW_USERNAME_AND_MACHINE=true  # Always show username@machine
+SHOW_UNPUSHED_COMMIT_COUNT=true  # Show count of commits ahead of remotes
 
 
 function set_custom_prompt {
@@ -73,6 +74,7 @@ function set_custom_prompt {
   local MACHINE_COLOR=$RED
   local REMOTE_COLOR=$BLUE
   local BRANCH_COLOR=$CYAN
+  local UNPUSHED_COMMITS_COUNT_COLOR=$YELLOW
 
   local HIGHLIGHT=$BLACK$BG_RED
 
@@ -99,6 +101,10 @@ function set_custom_prompt {
     if [ "$SHOW_BRANCH" ]
     then  # Display current branch
       PS1="$PS1$BRANCH_COLOR\`if is_git; then echo \$(current_git_branch); fi\`"
+      if [ "$SHOW_UNPUSHED_COMMIT_COUNT" ]
+      then
+        PS1="$PS1$UNPUSHED_COMMITS_COUNT_COLOR\`if is_git; then echo [\$(commit_count)]; fi\`"
+      fi
     fi
     PS1="$PS1\`if is_git; then echo $NO_COLOR\) ; fi\`"
   fi
@@ -116,6 +122,10 @@ function is_git {
 
 function current_git_branch {
   echo `git branch | grep \* | tr -d '* '`
+}
+
+function commit_count {
+  echo `git log --branches --not --remotes --oneline | wc -l`
 }
 
 function git_remote {
@@ -159,3 +169,4 @@ set_custom_prompt
 
 unset SHOW_REMOTE SHOW_BRANCH REMOTE_BRANCH_SEPARATOR
 unset SHOW_USERNAME_AND_MACHINE
+unset SHOW_UNPUSHED_COMMIT_COUNT
