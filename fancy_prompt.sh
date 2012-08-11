@@ -121,7 +121,10 @@ function set_custom_prompt {
 function is_git {
   if [ -d .git ] || [ $(git rev-parse --git-dir 2>/dev/null) ]
   then
-    return 0
+    if [ -z "$(grep \.git.*$ <<< $PWD)" ]
+    then
+      return 0
+    fi
   fi
   return 1
 }
