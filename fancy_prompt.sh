@@ -37,6 +37,7 @@ CROP_GITHUB_USERNAME=true  # Hide the github username from the github url
 CROP_GIT_TAIL=true  # Hide the ".git" from git urls
 #SHOW_USERNAME_AND_MACHINE=true  # Always show username@machine
 SHOW_UNPUSHED_COMMIT_COUNT=true  # Show count of commits ahead of remotes
+SHOW_UNCOMMITED=true  #  Show an asterisk if there are uncommited changes
 
 
 function set_custom_prompt {
@@ -75,6 +76,7 @@ function set_custom_prompt {
   local REMOTE_COLOR=$BLUE
   local BRANCH_COLOR=$CYAN
   local UNPUSHED_COMMITS_COUNT_COLOR=$YELLOW
+  local SHOW_UNCOMMITED_COLOR=$RED
 
   local HIGHLIGHT=$BLACK$BG_RED
 
@@ -106,6 +108,10 @@ function set_custom_prompt {
         PS1="$PS1$UNPUSHED_COMMITS_COUNT_COLOR\`if is_git; then echo [\$(commit_count)]; fi\`"
       fi
     fi
+    if [ "$SHOW_UNCOMMITED" ]
+    then
+      PS1="$PS1$SHOW_UNCOMMITED_COLOR\`if is_git && uncommited_changes; then echo \*; fi\`"
+    fi
     PS1="$PS1\`if is_git; then echo $NO_COLOR\) ; fi\`"
   fi
   
@@ -126,6 +132,14 @@ function current_git_branch {
 
 function commit_count {
   echo `git log --branches --not --remotes --oneline | wc -l`
+}
+
+function uncommited_changes {
+  if [ "$(git status -s)" ]
+  then
+    return 0
+  fi
+  return 1
 }
 
 function git_remote {
