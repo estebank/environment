@@ -41,3 +41,5 @@ if &background == "dark"
 else
   highlight SpecialKey ctermbg=Yellow guibg=Yellow
 end 
+
+autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
