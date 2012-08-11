@@ -42,4 +42,4 @@ else
   highlight SpecialKey ctermbg=Yellow guibg=Yellow
 end 
 
-autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
