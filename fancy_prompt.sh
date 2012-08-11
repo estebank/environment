@@ -1,19 +1,19 @@
 #!/bin/bash
-#             DO WHATEVER YOU WANT TO PUBLIC LICENSE 
+#             DO WHATEVER YOU WANT TO PUBLIC LICENSE
 #                    Version 1, December 2012
-# 
-#  Copyright (C) 2012 Esteban Kuber <esteban@kuber.com.ar> 
-# 
-#  Everyone is permitted to copy and distribute verbatim or modified 
-#  copies of this script. 
-# 
-#    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
-# 
+#
+#  Copyright (C) 2012 Esteban Kuber <esteban@kuber.com.ar>
+#
+#  Everyone is permitted to copy and distribute verbatim or modified
+#  copies of this script.
+#
+#    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+#
 #   0. You just DO WHATEVER YOU WANT TO.
 #
 #
 # Helper functions to set up a fancy prompt.
-# 
+#
 # Best way to use it is just to copy it anywhere you want (likely a
 # hidden directory in your home) and source it from .bashrc or .profile.
 # In terminal emulators other than bash, you can use the dot operator
@@ -28,7 +28,7 @@
 #   ~ $ _  # Home at local machine
 #   ~/src/project (project.git:my-branch)$ _  # GitHub repository
 #   username@machine ~/src/project (https://url.com/project.git)  # SSH
-#   ~/src/project (branch)  # git project showing only the current branch 
+#   ~/src/project (branch)  # git project showing only the current branch
 
 SHOW_REMOTE=true  # Show the origin remote url
 SHOW_BRANCH=true  # Show the current branch name
@@ -81,12 +81,12 @@ function set_custom_prompt {
   local HIGHLIGHT=$BLACK$BG_RED
 
   PS1="\w"  # By default, show current working directory
-  
+
   if is_ssh
   then  # Add username@machine at start of prompt when it's an ssh session
     PS1="$USERNAME_COLOR\u$NO_COLOR@$MACHINE_COLOR\h$NO_COLOR:$PS1"
   fi
-  
+
   if [ "$SHOW_REMOTE" ] || [ "$SHOW_BRANCH" ]
   then  # Display when inside a git repository
     PS1="$PS1\`if is_git; then echo \ \(; fi\`"
@@ -114,14 +114,14 @@ function set_custom_prompt {
     fi
     PS1="$PS1\`if is_git; then echo $NO_COLOR\) ; fi\`"
   fi
-  
+
   PS1="$PS1$NO_COLOR\$ "  # Reset custom color codes that might have been setup
 }
 
 function is_git {
   if [ -d .git ] || [ $(git rev-parse --git-dir 2>/dev/null) ]
   then
-    return 0 
+    return 0
   fi
   return 1
 }
@@ -163,7 +163,7 @@ function git_remote {
   then  # Display only remote repository name if it is GitHub
     GIT_REMOTE=${GIT_REMOTE%\.git}
   fi
-  
+
   echo $GIT_REMOTE
 }
 
