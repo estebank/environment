@@ -137,7 +137,7 @@ function current_git_branch {
 }
 
 function commit_count {
-  echo `git log --branches --not --remotes --oneline | wc -l`
+  echo `git log --branches --not --remotes --oneline  2>/dev/null | wc -l`
 }
 
 function uncommited_changes {
