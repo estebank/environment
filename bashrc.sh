@@ -78,3 +78,8 @@ export EDITOR='vim'
 
 # Keep history through shells
 shopt -s histappend
+
+# Fancy prompt
+if [ -f ~/.myscripts/fancy_prompt.sh ]; then
+    . ~/.myscripts/fancy_prompt.sh
+fi

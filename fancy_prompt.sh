@@ -71,6 +71,9 @@ function set_custom_prompt {
   local BG_CYAN="\[\033[46m\]"
   local BG_WHITE="\[\033[47m\]"
 
+  local PWD_COLOR=$WHITE
+  local END_COLOR=$WHITE
+  local PROMPT_COLOR=$GREEN
   local USERNAME_COLOR=$YELLOW
   local MACHINE_COLOR=$RED
   local REMOTE_COLOR=$BLUE
@@ -80,7 +83,7 @@ function set_custom_prompt {
 
   local HIGHLIGHT=$BLACK$BG_RED
 
-  PS1="\w"  # By default, show current working directory
+  PS1="$PWD_COLOR\w$NO_COLOR"  # By default, show current working directory
 
   if is_ssh
   then  # Add username@machine at start of prompt when it's an ssh session
@@ -115,7 +118,7 @@ function set_custom_prompt {
     PS1="$PS1\`if is_git; then echo $NO_COLOR\) ; fi\`"
   fi
 
-  PS1="$PS1$NO_COLOR\$ "  # Reset custom color codes that might have been setup
+  PS1="$PS1$END_COLOR\$ $PROMPT_COLOR"  # Reset custom color codes that might have been setup
 }
 
 function is_git {
