@@ -186,6 +186,20 @@ function is_ssh {
 
 set_custom_prompt
 
+# Set white for default command output color.
+# Taken from:
+#  http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
+#  https://wiki.archlinux.org/index.php/Color_Bash_Prompt#List_of_colors_for_prompt_and_Bash
+preexec () {
+  echo -ne "\e[00;37m" # White
+}
+preexec_invoke_exec () {
+  [ -n "$COMP_LINE" ] && return  # Do nothing if completing.
+  local this_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+  preexec "$this_command"
+}
+trap 'preexec_invoke_exec' DEBUG
+
 
 unset SHOW_REMOTE SHOW_BRANCH REMOTE_BRANCH_SEPARATOR
 unset SHOW_USERNAME_AND_MACHINE
