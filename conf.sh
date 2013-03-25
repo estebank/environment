@@ -2,7 +2,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 mkdir -p ~/.myscripts
 ln $SCRIPT_DIR/fancy_prompt.sh ~/.myscripts/fancy_prompt.sh
-ln $SCRIPT_DIR/git-meld.sh ~/.myscripts/git-meld.sh
 
 mv ~/.bashrc ~/.bashrc.bkp
 ln $SCRIPT_DIR/bashrc.sh ~/.bashrc

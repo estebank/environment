@@ -191,7 +191,7 @@ set_custom_prompt
 #  http://superuser.com/questions/175799/does-bash-have-a-hook-that-is-run-before-executing-a-command
 #  https://wiki.archlinux.org/index.php/Color_Bash_Prompt#List_of_colors_for_prompt_and_Bash
 preexec () {
-  echo -ne "\e[00;37m" # White
+  echo -ne "\033[00;37m" # White
 }
 preexec_invoke_exec () {
   [ -n "$COMP_LINE" ] && return  # Do nothing if completing.
