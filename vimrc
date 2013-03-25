@@ -43,3 +43,10 @@ else
 end 
 
 autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
+execute pathogen#infect()
+highlight SignColumn ctermbg=black
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set colorcolumn=79
+highlight ColorColumn ctermbg=4
+set ruler
