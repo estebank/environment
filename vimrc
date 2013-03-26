@@ -19,35 +19,42 @@ set smartindent
 set expandtab
 set hlsearch
 set number
+"set cursorline
 
 " Mappings
 nmap <C-N> :noh <CR>
 
 colorscheme desert
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" Highlight lines over 80 characters.
+"highlight OverLength ctermbg=blue ctermfg=white guibg=#592929
+"highlight OverLength ctermbg=17 ctermfg=none guibg=#030347
+"let lineoverlength = matchadd('OverLength', '\%81v.\+')
+highlight ColorColumn ctermbg=17
+set colorcolumn=80
 
-if $SHELL =~ 'bin/fish' 
-  set shell=/bin/sh 
+if $SHELL =~ 'bin/fish'
+  set shell=/bin/sh
 endif 
 
-" show trailing spaces in yellow (or red, for users with dark backgrounds).
-" "set nolist" to disable this.
-" this only works if syntax highlighting is enabled.
-set list
-if &background == "dark"
-  highlight SpecialKey ctermbg=Red guibg=Red
-else
-  highlight SpecialKey ctermbg=Yellow guibg=Yellow
-end 
+" Highlight trailing whitespaces, multiple spaces and tabs in red.
+highlight trailingwhitespace ctermbg=red ctermfg=white guibg=#592929
+let highlight_trailing_whitespace = matchadd('trailingwhitespace', '\s\+$', 4)
+let highlight_tabs = matchadd('trailingwhitespace', '\t')
+let highlight_multiple_whitespaces = matchadd('trailingwhitespace', '\S\zs\s\{2,}\ze[^/#]')
+highlight highlighttabs cterm=underline ctermbg=red ctermfg=white guibg=#592929
+let highlight_tabs = matchadd('highlighttabs', '\t')
+highlight Search ctermbg=52 ctermfg=white
+highlight IncSearch ctermbg=DarkRed ctermfg=white
+set incsearch
 
 autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 execute pathogen#infect()
 highlight SignColumn ctermbg=black
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-set colorcolumn=79
-highlight ColorColumn ctermbg=4
 set ruler
 set mouse=a
