@@ -50,3 +50,4 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set colorcolumn=79
 highlight ColorColumn ctermbg=4
 set ruler
+set mouse=a
