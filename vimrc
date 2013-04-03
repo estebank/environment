@@ -38,20 +38,27 @@ set colorcolumn=80
 
 if $SHELL =~ 'bin/fish'
   set shell=/bin/sh
-endif 
+endif
 
 " Highlight trailing whitespaces, multiple spaces and tabs in red.
 highlight trailingwhitespace ctermbg=red ctermfg=white guibg=#592929
 let highlight_trailing_whitespace = matchadd('trailingwhitespace', '\s\+$', 4)
-let highlight_tabs = matchadd('trailingwhitespace', '\t')
-let highlight_multiple_whitespaces = matchadd('trailingwhitespace', '\S\zs\s\{2,}\ze[^/#]')
-highlight highlighttabs cterm=underline ctermbg=red ctermfg=white guibg=#592929
+highlight multiplewhitespace ctermbg=52 ctermfg=white guibg=#592929
+let highlight_multiple_whitespaces = matchadd('multiplewhitespace', '\S\zs\s\{2,}\ze[^/#]')
+highlight highlighttabs cterm=undercurl ctermbg=red ctermfg=white guibg=#592929
 let highlight_tabs = matchadd('highlighttabs', '\t')
-highlight Search ctermbg=52 ctermfg=white
+highlight Search ctermbg=88 ctermfg=white
 highlight IncSearch ctermbg=DarkRed ctermfg=white
 set incsearch
-
-autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+highlight difffilemine ctermbg=17
+let highlight_diff_start = matchadd('difffilemine', '^<<<<<<<\_.*=======')
+highlight difffiletheirs ctermbg=52
+let highlight_diff_end = matchadd('difffiletheirs', '^=======\_.*>>>>>>>.*')
+highlight difffilemiddle ctermbg=8
+let highlight_diff_middle = matchadd('difffilemiddle', '^=======$')
+"highlight VisualNOS cterm=bold,underline ctermbg=53
+"highlight VisualNOS ctermbg=53
+"autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 execute pathogen#infect()
 highlight SignColumn ctermbg=black
