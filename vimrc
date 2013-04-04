@@ -56,6 +56,10 @@ highlight difffiletheirs ctermbg=52
 let highlight_diff_end = matchadd('difffiletheirs', '^=======\_.*>>>>>>>.*')
 highlight difffilemiddle ctermbg=8
 let highlight_diff_middle = matchadd('difffilemiddle', '^=======$')
+highlight metadata ctermbg=17
+let hightlight_shebang = matchadd('metadata', '^#!\(\/\w*\)*')
+let hightlight_python_encoding = matchadd('metadata', '#.*-\*-.*coding:.*-\*-')
+let hightlight_python_metadata = matchadd('metadata', '__\w*__.*=.*["|''].*["|'']')
 "highlight VisualNOS cterm=bold,underline ctermbg=53
 "highlight VisualNOS ctermbg=53
 "autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
