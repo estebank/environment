@@ -119,6 +119,9 @@ function set_custom_prompt {
   fi
 
   PS1="$PS1$END_COLOR\$ $PROMPT_COLOR"  # Reset custom color codes that might have been setup
+
+  # Display at the beginning of the prompt if the current terminal was spawned by vim or bash
+  case $(ps $PPID) in *vim|*bash) PS1="$MAGENTA$(ps $PPID | awk '{print $NF}' | sed 1d)$NO_COLOR $PS1" ;; esac
 }
 
 function is_git {
