@@ -65,3 +65,4 @@ highlight SignColumn ctermbg=black
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set ruler
 set mouse=a
+set laststatus=2
