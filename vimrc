@@ -60,6 +60,8 @@ highlight metadata ctermbg=17
 let hightlight_shebang = matchadd('metadata', '^#!\(\/\w*\)*')
 let hightlight_python_encoding = matchadd('metadata', '#.*-\*-.*coding:.*-\*-')
 let hightlight_python_metadata = matchadd('metadata', '__\w*__.*=.*["|''].*["|'']')
+highlight conditionalcomments ctermfg=17 ctermbg=45
+let highlight_conditional_comments = matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[.*\]\_.*\[endif\]\(-\{2\}\)\?>')
 "highlight VisualNOS cterm=bold,underline ctermbg=53
 "highlight VisualNOS ctermbg=53
 "autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
