@@ -61,7 +61,7 @@ call matchadd('metadata', '^#!\(\/\w*\)*')
 call matchadd('metadata', '#.*-\*-.*coding:.*-\*-')
 call matchadd('metadata', '__\w*__.*=.*["|''].*["|'']')
 highlight conditionalcomments ctermfg=17 ctermbg=45
-call matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[.*\]\_.*\[endif\]\(-\{2\}\)\?>')
+call matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[if.*\]\_.*\[endif\]\(-\{2\}\)\?>')
 call matchadd('conditionalcomments', '\/\*@cc_on\_.*@\*\/')
 "highlight VisualNOS cterm=bold,underline ctermbg=53
 "highlight VisualNOS ctermbg=53
