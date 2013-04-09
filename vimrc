@@ -51,17 +51,18 @@ highlight Search ctermbg=88 ctermfg=white
 highlight IncSearch ctermbg=DarkRed ctermfg=white
 set incsearch
 highlight difffilemine ctermbg=17
-let highlight_diff_start = matchadd('difffilemine', '^<<<<<<<\_.*=======')
+call matchadd('difffilemine', '^<<<<<<<\_.*=======')
 highlight difffiletheirs ctermbg=52
-let highlight_diff_end = matchadd('difffiletheirs', '^=======\_.*>>>>>>>.*')
+call matchadd('difffiletheirs', '^=======\_.*>>>>>>>.*')
 highlight difffilemiddle ctermbg=8
-let highlight_diff_middle = matchadd('difffilemiddle', '^=======$')
+call matchadd('difffilemiddle', '^=======$')
 highlight metadata ctermbg=17
-let hightlight_shebang = matchadd('metadata', '^#!\(\/\w*\)*')
-let hightlight_python_encoding = matchadd('metadata', '#.*-\*-.*coding:.*-\*-')
-let hightlight_python_metadata = matchadd('metadata', '__\w*__.*=.*["|''].*["|'']')
+call matchadd('metadata', '^#!\(\/\w*\)*')
+call matchadd('metadata', '#.*-\*-.*coding:.*-\*-')
+call matchadd('metadata', '__\w*__.*=.*["|''].*["|'']')
 highlight conditionalcomments ctermfg=17 ctermbg=45
-let highlight_conditional_comments = matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[.*\]\_.*\[endif\]\(-\{2\}\)\?>')
+call matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[.*\]\_.*\[endif\]\(-\{2\}\)\?>')
+call matchadd('conditionalcomments', '\/\*@cc_on\_.*@\*\/')
 "highlight VisualNOS cterm=bold,underline ctermbg=53
 "highlight VisualNOS ctermbg=53
 "autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
