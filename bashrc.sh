@@ -1,19 +1,19 @@
 #!/bin/bash
-#             DO WHATEVER YOU WANT TO PUBLIC LICENSE 
+#             DO WHATEVER YOU WANT TO PUBLIC LICENSE
 #                    Version 1, December 2012
-# 
-#  Copyright (C) 2012 Esteban Kuber <esteban@kuber.com.ar> 
-# 
-#  Everyone is permitted to copy and distribute verbatim or modified 
-#  copies of this script. 
-# 
-#    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
-# 
+#
+#  Copyright (C) 2012 Esteban Kuber <esteban@kuber.com.ar>
+#
+#  Everyone is permitted to copy and distribute verbatim or modified
+#  copies of this script.
+#
+#    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+#
 #   0. You just DO WHATEVER YOU WANT TO.
 #
 #
 # .bashrc contents.
-# 
+#
 # Basic .bashrc:
 #
 #  source .my_scripts/bashrc.sh
@@ -48,6 +48,15 @@ alias l='ls -CFG'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+rmrec-view () {
+  find . -name "$@";
+}
+rmrec () {
+  find . -name "$@";
+  echo "Deleting";
+  find . -name "$@" -print0 | xargs -0 rm -rf
+}
+alias rmpyc='rmrec *.pyc'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -74,3 +83,6 @@ shopt -s histappend
 if [ -f ~/.myscripts/fancy_prompt.sh ]; then
     . ~/.myscripts/fancy_prompt.sh
 fi
+
+export NODE_PATH=$NODE_PATH:/usr/local/share/npm/bin/
+export PATH=$PATH:$NODE_PATH  #damn lessc
