@@ -104,3 +104,5 @@ function! ToggleVExplorer()
   exec window size 80
 endfunction
 map <silent> <C-E> :call ToggleVExplorer()<CR>
+
+autocmd! bufwritepost .vimrc source %  "Autoreload vimrc on edit
