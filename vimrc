@@ -30,9 +30,6 @@ if $TERM == "xterm-256color"
 endif
 
 " Highlight lines over 80 characters.
-"highlight OverLength ctermbg=blue ctermfg=white guibg=#592929
-"highlight OverLength ctermbg=17 ctermfg=none guibg=#030347
-"let lineoverlength = matchadd('OverLength', '\%81v.\+')
 highlight ColorColumn ctermbg=17
 set colorcolumn=80
 
@@ -63,9 +60,6 @@ call matchadd('metadata', '__\w*__.*=.*["|''].*["|'']$')
 highlight conditionalcomments ctermfg=17 ctermbg=45
 call matchadd('conditionalcomments', '<!\(-\{2\}\)\?\[if.*\]\_.*\[endif\]\(-\{2\}\)\?>')
 call matchadd('conditionalcomments', '\/\*@cc_on\_.*@\*\/')
-"highlight VisualNOS cterm=bold,underline ctermbg=53
-"highlight VisualNOS ctermbg=53
-"autocmd CursorMoved * silent! exe printf('match VisualNOS /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 execute pathogen#infect()
 highlight SignColumn ctermbg=black
@@ -85,13 +79,7 @@ let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=\>,\.py$,\.js$,\.html$,\.l
 syn match netrwPyc "\(\S\+ \)*\S\+\.pyc\>" contains=netrwTreeBar,@NoSpell
 hi default link netrwPyc Directory
 
-let g:netrw_preview = 1
 let g:netrw_special_syntax= 1
-
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
-"let g:netrw_browse_split = 4
-let g:netrw_altv = 1
 
 let g:netrw_liststyle = 3
 
