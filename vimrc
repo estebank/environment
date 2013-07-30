@@ -105,4 +105,7 @@ function! ToggleVExplorer()
 endfunction
 map <silent> <C-E> :call ToggleVExplorer()<CR>
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 autocmd! bufwritepost .vimrc source %  "Autoreload vimrc on edit
