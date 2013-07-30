@@ -42,11 +42,11 @@ endif
 
 " Highlight trailing whitespaces, multiple spaces and tabs in red.
 highlight trailingwhitespace ctermbg=red ctermfg=white guibg=#592929
-let highlight_trailing_whitespace = matchadd('trailingwhitespace', '\s\+$', 4)
+call matchadd('trailingwhitespace', '\s\+$', 4)
 highlight multiplewhitespace ctermbg=52 ctermfg=white guibg=#592929
-let highlight_multiple_whitespaces = matchadd('multiplewhitespace', '\S\zs\s\{2,}\ze[^/#]')
+call matchadd('multiplewhitespace', '\S\zs\s\{2,}\ze[^/#]')
 highlight highlighttabs cterm=undercurl ctermbg=red ctermfg=white guibg=#592929
-let highlight_tabs = matchadd('highlighttabs', '\t')
+call matchadd('highlighttabs', '\t')
 highlight Search ctermbg=88 ctermfg=white
 highlight IncSearch ctermbg=DarkRed ctermfg=white
 set incsearch
