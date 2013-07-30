@@ -108,7 +108,7 @@ function set_custom_prompt {
       PS1="$PS1$BRANCH_COLOR\`if is_git; then echo \$(current_git_branch); fi\`"
       if [ "$SHOW_UNPUSHED_COMMIT_COUNT" ]
       then
-        PS1="$PS1$UNPUSHED_COMMITS_COUNT_COLOR\`if is_git; then echo [\$(commit_count)]; fi\`"
+        PS1="$PS1$UNPUSHED_COMMITS_COUNT_COLOR\`if is_git; then echo \ \$(commit_count); fi\`"
       fi
     fi
     if [ "$SHOW_UNCOMMITED" ]
