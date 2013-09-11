@@ -106,3 +106,5 @@ _complete_hosts () {
 }
 complete -F _complete_hosts ssh
 complete -F _complete_hosts host
+
+. /usr/share/git-core/git-completion.bash
