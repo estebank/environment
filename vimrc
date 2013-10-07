@@ -86,6 +86,9 @@ let g:netrw_liststyle = 3
 " Use Python syntax highlight for mesos config files
 au BufRead,BufNewFile *.mesos set filetype=python
 
+" Use Python syntax highlight for BUILD files
+au BufRead,BufNewFile BUILD set filetype=python
+
 " Toggle Vexplore with Ctrl-E
 function! ToggleVExplorer()
   if exists("t:expl_buf_num")
