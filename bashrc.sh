@@ -67,13 +67,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
 export EDITOR='vim'
 
 # Keep history through shells
@@ -86,6 +79,13 @@ fi
 
 export NODE_PATH=$NODE_PATH:/usr/local/share/npm/bin/
 export PATH=$PATH:$NODE_PATH  #damn lessc
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
 
 # Autocomplete Hostnames for SSH etc.
 # by Jean-Sebastien Morisset
@@ -107,4 +107,7 @@ _complete_hosts () {
 complete -F _complete_hosts ssh
 complete -F _complete_hosts host
 
-. /usr/share/git-core/git-completion.bash
+# Use system's git completion
+if [ -f /usr/share/git-core/git-completion.bash ]; then
+  . /usr/share/git-core/git-completion.bash
+fi
