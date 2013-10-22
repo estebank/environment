@@ -115,3 +115,7 @@ map <silent> <C-E> :call ToggleVExplorer()<CR>
 cmap w!! w !sudo tee > /dev/null %
 
 autocmd! bufwritepost .vimrc source %  "Autoreload vimrc on edit
+
+" vim-gitgutter will update only on write
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
