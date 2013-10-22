@@ -138,7 +138,7 @@ function is_git {
 }
 
 function current_git_branch {
-  echo `git branch | grep \* | tr -d '* '`
+  echo `git rev-parse --abbrev-ref HEAD`
 }
 
 function commit_count {
