@@ -146,7 +146,7 @@ function commit_count {
 }
 
 function uncommited_changes {
-  if [ "$(git status -s)" ]
+  if [ "$(git status --porcelain)" ]
   then
     return 0
   fi
