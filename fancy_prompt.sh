@@ -113,7 +113,7 @@ function set_custom_prompt {
     fi
     if [ "$SHOW_UNCOMMITED" ]
     then
-      PS1="$PS1$SHOW_UNCOMMITED_COLOR\`if is_git && uncommited_changes; then echo \*; fi\`"
+      PS1="$PS1$SHOW_UNCOMMITED_COLOR\`uncommited_changes\`"
     fi
     PS1="$PS1\`if is_git; then echo $NO_COLOR\) ; fi\`"
   fi
@@ -146,11 +146,43 @@ function commit_count {
 }
 
 function uncommited_changes {
-  if [ "$(git status --porcelain)" ]
+  if is_git
   then
-    return 0
+    local STAGED="$(git diff-index --cached HEAD)"
+    local CHANGED="$(git diff-files)"
+    local NEW="$(git ls-files --exclude-standard --others)"
+    local ECHO=""
+
+    if [ "$STAGED" ]
+    then
+      ECHO="'"
+    fi
+    if [ "$CHANGED" ]
+    then
+      ECHO="."
+    fi
+    if [ "$NEW" ]
+    then
+      ECHO=","
+    fi
+    if [ "$STAGED" ] && [ "$CHANGED" ]
+    then
+      ECHO=":"
+    fi
+    if [ "$STAGED" ] && [ "$NEW" ]
+    then
+      ECHO=";"
+    fi
+    if [ "$CHANGED" ] && [ "$NEW" ]
+    then
+      ECHO="‥"
+    fi
+    if [ "$STAGED" ] && [ "$CHANGED" ] && [ "$NEW" ]
+    then
+      ECHO="⁖"
+    fi
+    echo $ECHO
   fi
-  return 1
 }
 
 function git_remote {
