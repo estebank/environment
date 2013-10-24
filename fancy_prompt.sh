@@ -34,6 +34,7 @@ SHOW_REMOTE=true  # Show the origin remote url
 SHOW_BRANCH=true  # Show the current branch name
 CROP_GITHUB_URL=true  # Hide the github domain from the github url
 CROP_GITHUB_USERNAME=true  # Hide the github username from the github url
+CROP_PROTOCOL=true  # Hide the *:// from git urls
 CROP_GIT_TAIL=true  # Hide the ".git" from git urls
 #SHOW_USERNAME_AND_MACHINE=true  # Always show username@machine
 SHOW_UNPUSHED_COMMIT_COUNT=true  # Show count of commits ahead of remotes
@@ -201,6 +202,10 @@ function git_remote {
     else  # Display only remote repository name if it is GitHub
       GIT_REMOTE=${GIT_REMOTE#https*github\.com\/}
     fi
+  fi
+  if [ "$CROP_PROTOCOL" ]
+  then
+    GIT_REMOTE=${GIT_REMOTE#*\:\/\/}
   fi
   if [ "$CROP_GIT_TAIL" ]
   then  # Display only remote repository name if it is GitHub
