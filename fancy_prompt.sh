@@ -36,10 +36,9 @@ CROP_GITHUB_URL=true  # Hide the github domain from the github url
 CROP_GITHUB_USERNAME=true  # Hide the github username from the github url
 CROP_PROTOCOL=true  # Hide the *:// from git urls
 CROP_GIT_TAIL=true  # Hide the ".git" from git urls
-#SHOW_USERNAME_AND_MACHINE=true  # Always show username@machine
+SHOW_USERNAME_AND_MACHINE= # Always show username@machine
 SHOW_UNPUSHED_COMMIT_COUNT=true  # Show count of commits ahead of remotes
 SHOW_UNCOMMITED=true  #  Show an asterisk if there are uncommited changes
-
 
 function set_custom_prompt {
 
@@ -156,31 +155,31 @@ function uncommited_changes {
 
     if [ "$STAGED" ]
     then
-      ECHO="'"
+      ECHO="☱"
     fi
     if [ "$CHANGED" ]
     then
-      ECHO="."
+      ECHO="☲"
     fi
     if [ "$NEW" ]
     then
-      ECHO=","
+      ECHO="☴"
     fi
     if [ "$STAGED" ] && [ "$CHANGED" ]
     then
-      ECHO=":"
+      ECHO="☶"
     fi
     if [ "$STAGED" ] && [ "$NEW" ]
     then
-      ECHO=";"
+      ECHO="☵"
     fi
     if [ "$CHANGED" ] && [ "$NEW" ]
     then
-      ECHO="‥"
+      ECHO="☶"
     fi
     if [ "$STAGED" ] && [ "$CHANGED" ] && [ "$NEW" ]
     then
-      ECHO="⁖"
+      ECHO="☷"
     fi
     echo $ECHO
   fi
@@ -199,8 +198,10 @@ function git_remote {
     if [ "$CROP_GITHUB_USERNAME" ]
     then  # Display only remote repository name without username
       GIT_REMOTE=${GIT_REMOTE#https*github\.com\/*\/}
+      GIT_REMOTE=${GIT_REMOTE#git*github\.com:*\/}
     else  # Display only remote repository name if it is GitHub
       GIT_REMOTE=${GIT_REMOTE#https*github\.com\/}
+      GIT_REMOTE=${GIT_REMOTE#git*github\.com:}
     fi
   fi
   if [ "$CROP_PROTOCOL" ]
